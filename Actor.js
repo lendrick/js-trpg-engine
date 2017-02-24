@@ -3,8 +3,8 @@
 var StatBlock = require('./StatBlock');
 
 class Actor extends StatBlock {
-  constructor(statBlockName) {
-    super(statBlockName);
+  constructor(statBlockName, init = {}) {
+    super(statBlockName, init);
   }
   
   attack(enemy) {

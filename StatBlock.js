@@ -6,7 +6,7 @@ var merge = require('deepmerge');
 var fs    = require('fs');
 
 class StatBlock {
-  constructor(statBlockName) {   
+  constructor(statBlockName, init = {}) {   
     this.stats = StatBlock.getStats(statBlockName);
     this.modifiers = new Object();
     this.equipment = new Object();
@@ -18,6 +18,10 @@ class StatBlock {
       for(let i = 0; i < this.stats.slots[slotName].count; i++) {
         this.equipment[slotName][i] = null;
       }
+    }
+    
+    for(var key in init) {
+      this[key] = merge(this[key], init[key], { clone: true });
     }
   }
   
@@ -63,6 +67,18 @@ class StatBlock {
     }
     
     return NULL;
+  }
+  
+  getMod(statName) {
+    if(!(statName in this.stats.values)) {
+      return null;
+    }
+    
+    if(!(statName in this.modifiers)) {
+      return 0;
+    }
+    
+    return this.modifiers[statName];
   }
   
   set(statName, value) {
@@ -128,11 +144,11 @@ class StatBlock {
     if(!(statBlockName in statsCache)) {
       statsCache[statBlockName] = yaml.safeLoad(fs.readFileSync('./stats/' + statBlockName + '.yml', 'utf8'));
       if('parent' in statsCache[statBlockName]) {
-        statsCache[statBlockName] = merge(StatBlock.getStats(statsCache[statBlockName].parent), statsCache[statBlockName]);        
+        statsCache[statBlockName] = merge(StatBlock.getStats(statsCache[statBlockName].parent), statsCache[statBlockName], { clone: true });        
       }
     }
     
-    return Object.assign({}, statsCache[statBlockName]);
+    return merge({}, statsCache[statBlockName], { clone: true });
   }    
 }
 
