@@ -1,8 +1,8 @@
 'use strict';
 
 var statsCache = new Object();
-require('json5');
-require('json5/lib/require');
+require('js-yaml');
+var merge = require('deepmerge');
 
 class StatBlock {
   constructor(statBlockName) {   
@@ -14,9 +14,9 @@ class StatBlock {
   static getStats(statBlockName) {
     console.log("getStats: " + statBlockName);
     if(!(statBlockName in statsCache)) {
-      statsCache[statBlockName] = require('./stats/' + statBlockName + '.json5');
+      statsCache[statBlockName] = require('./stats/' + statBlockName + '.yml');
       if('parent' in statsCache[statBlockName]) {
-        statsCache[statBlockName] = Object.assign({}, StatBlock.getStats(statsCache[statBlockName].parent), statsCache[statBlockName]);        
+        statsCache[statBlockName] = merge(StatBlock.getStats(statsCache[statBlockName].parent), statsCache[statBlockName]);        
       }
     }
     

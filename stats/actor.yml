@@ -1,0 +1,12 @@
+name: actor
+parent: stats
+values:
+  lvl:
+    name: Level
+    default: 1
+  hp:
+    name: HP
+    default: 1
+  exp:
+    name: Experience
+    default: 0
