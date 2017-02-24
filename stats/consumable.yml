@@ -1,0 +1,4 @@
+name: item
+slots: {}
+attributes:
+  consumable: true 

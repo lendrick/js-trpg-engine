@@ -1,50 +1,31 @@
-name: stats
+name: item
 slots: {}
-attributes: {}
+attributes:
+  consumable: false
 values:
   lvl:
-    name: Level
     default: 0
   str: # The strength of the character.  Affects attack power.
-    name: Strength
     default: 0
   con: # Affects the rate at which the character gains hit points
-    name: Constitution
     default: 0
   arm: # Affects resistance to physical damage
-    name: Toughness
     default: 0
   int: # Affects magic attack power
-    name: Intelligence
     default: 0
   res: # Affects resistance to magic damage
-    name: Resistance
     default: 0
   acc: # Affects miss chance
-    name: Accuracy
     default: 0
   spd: # Affects turn order
-    name: Speed
     default: 0
   mov: # The number of spaces a character can move
-    name: Movement
     default: 0
   atk:
-    name: Physical Attack
     default: 0
   def:
-    name: Physical Defense
     default: 0
   matk:
-    name: Magical Attack
     default: 0
   mdef:
-    name: Magical Defense
     default: 0
-  hit:
-    name: Hit
-    default: 0
-  dodge:
-    name: Dodge
-    default: 0
-  

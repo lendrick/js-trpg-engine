@@ -1,12 +1,106 @@
 name: actor
 parent: stats
+canLevel: true
+slots:
+  weapon:
+    name: Weapon
+    count: 1
+  armor:
+    name: Armor
+    count: 1
+  accessory:
+    name: Accessory
+    count: 2    
 values:
   lvl:
     name: Level
     default: 1
+    formula: Math.floor(curve.lvl.base + Math.pow(curve.lvl.rate * this.get('exp'), curve.lvl.power)) 
   hp:
     name: HP
     default: 1
+    formula: Math.floor(curve.hp.base + Math.pow(this.get('con') * this.get('lvl'), curve.hp.power))
+    clampMod:
+      max: 0
+      min: -this.get('hp')
   exp:
     name: Experience
     default: 0
+  expvalue: # The amount of experience that defeating this actor will yield
+    name: Experience value
+    default: 0
+    formula: Math.floor(curve.expvalue.base + Math.pow(curve.expvalue.rate * this.get('lvl'), curve.expvalue.power))         
+  str:
+    formula: Math.floor(curve.str.base + Math.pow(curve.str.rate * this.get('lvl'), curve.str.power))
+  con:
+    formula: Math.floor(curve.con.base + Math.pow(curve.con.rate * this.get('lvl'), curve.con.power))
+  arm:
+    formula: Math.floor(curve.arm.base + Math.pow(curve.arm.rate * this.get('lvl'), curve.arm.power))
+  int:
+    formula: Math.floor(curve.int.base + Math.pow(curve.int.rate * this.get('lvl'), curve.int.power))
+  res:
+    formula: Math.floor(curve.res.base + Math.pow(curve.res.rate * this.get('lvl'), curve.res.power))
+  acc:
+    formula: Math.floor(curve.acc.base + Math.pow(curve.acc.rate * this.get('lvl'), curve.acc.power))
+  spd:
+    formula: Math.floor(curve.spd.base + Math.pow(curve.spd.rate * this.get('lvl'), curve.spd.power))
+  mov:
+    formula: Math.floor(curve.mov.base + Math.pow(curve.mov.rate * this.get('lvl'), curve.mov.power))
+  atk:
+    formula: this.get('str') + this.get('lvl')
+  def:
+    formula: this.get('arm') + this.get('lvl')
+  matk:
+    formula: this.get('int') + this.get('lvl')
+  mdef:
+    formula: this.get('res') + this.get('lvl')
+  hit:
+    formula: 100 + this.get('acc')
+  dodge:
+    formula: Math.floor(this.get('spd') / 4)
+curve:
+  # Typically, the formula for calcuating a curve is:
+  # base + (level * rate) ^ power
+  lvl: # depends on experience
+    base: 1
+    rate: 0.1
+    power: 0.5
+  hp: # rate depends on constitution
+    base: 1
+    power: 1
+  expvalue:
+    base: 1
+    rate: 1
+    power: 1.8
+  str: 
+    base: 1
+    rate: 10
+    power: 1
+  con: 
+    base: 1
+    rate: 10
+    power: 1
+  arm: 
+    base: 1
+    rate: 7.5
+    power: 1
+  int: 
+    base: 1
+    rate: 10
+    power: 1
+  res: 
+    base: 1
+    rate: 7.5
+    power: 1
+  acc: 
+    base: 0
+    rate: 1
+    power: .75
+  spd: 
+    base: 1
+    rate: 10
+    power: 1
+  mov: 
+    base: 3
+    rate: .1
+    power: 1

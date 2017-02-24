@@ -1,0 +1,6 @@
+name: potion
+attributes:
+  consumable: true
+values:
+  hp:
+    value: 50

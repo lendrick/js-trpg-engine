@@ -1,0 +1,6 @@
+name: Iron Shortsword
+parent: item
+values:
+  atk:
+    value: 3
+    

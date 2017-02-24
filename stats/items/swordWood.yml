@@ -1,0 +1,5 @@
+name: Wooden Sword
+parent: item
+values:
+  atk:
+    value: 1

@@ -1,4 +1,7 @@
 {
   "name": "helloworld",
-  "main": "index.html"
+  "main": "index.html",
+  "devDependencies": {
+    "nw-dev": "~3.0.1"
+  }
 }
