@@ -1,0 +1,22 @@
+{
+  "earth" : {
+    "name" : "Earth"
+  },
+  "fire" : {
+    "name" : "Fire"
+  },
+  "air" : {
+    "name" : "Air"
+  },
+  "water" : {
+    "name" : "Water"
+  },
+  "light" : {
+    "name" : "Light"
+  },
+  "dark" : {
+    "name" : "Dark"
+  }
+}
+
+  
