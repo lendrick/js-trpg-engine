@@ -1,0 +1,17 @@
+spritesheets:
+  F04:
+    file: "sprites/F_04.png"
+    width: 16
+    height: 16
+  F03:
+    file: "sprites/F_03.png"
+    width: 16
+    height: 16
+images:
+  tiles:
+    file: "tiles/tiles.png"
+  overlay:
+    file: "tiles/tile_overlay.png"
+tilemaps:
+  test:
+    file: "maps/test.json"

@@ -4,5 +4,6 @@
   "window": {
     "width": 1920,
     "height": 1080
-  }
+  },
+  "chromium-args": "--force-device-scale-factor=1 --high-dpi-support=1"
 }
