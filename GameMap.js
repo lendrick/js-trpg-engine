@@ -55,6 +55,13 @@ class GameMap {
 		this.actors[this.currentActor].showRange();
 		return this.getCurrentActor();
 	}
+
+	getActorAt(x, y) {
+		for(var a in this.actors) {
+			if(this.actors[a].pos.x == x && this.actors[a].pos.y == y) return this.actors[a];
+		}
+		return null;
+	}
 }
 
 module.exports = GameMap;

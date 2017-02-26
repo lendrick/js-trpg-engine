@@ -90,10 +90,9 @@ class Actor extends StatBlock {
   	for(var m in moves) {
   		let mx = x + moves[m][0];
   		let my = y + moves[m][1];
-
-  		let tile = this.map.tilemap.getTile(mx, my, this.map.tilemap.layers[0].name);
-  		
-  		//console.log(tile.properties);
+	  	let tile = this.map.tilemap.getTile(mx, my, this.map.tilemap.layers[0].name);
+	  		
+	  		//console.log(tile.properties);
 
   		if(tile) {
 	  		let moveCost = null;
@@ -108,8 +107,8 @@ class Actor extends StatBlock {
 
 	  		if(moveCost !== null && moveCost > 0) {
 		  		let newMove = movement - moveCost;
-		  		if(movement > 0) this.setMoves(mx, my, newMove);
-		  	}
+		  		if(movement > 0 && this.map.getActorAt(mx, my) === null) this.setMoves(mx, my, newMove);
+		  	}		  
 		  }
   	}
   }
