@@ -1,0 +1,13 @@
+walk:
+  grass: 1
+  stone: null
+  water: null
+fly:
+  grass: 1
+  stone: 1
+  water: 1
+swim:
+  grass: 1
+  stone: null
+  water: 1
+  

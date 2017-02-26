@@ -63,6 +63,36 @@
          "spacing":0,
          "tilecount":64,
          "tileheight":64,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "type":"grass"
+                },
+             "1":
+                {
+                 "type":"stone"
+                },
+             "2":
+                {
+                 "type":"water"
+                }
+            },
+         "tilepropertytypes":
+            {
+             "0":
+                {
+                 "type":"string"
+                },
+             "1":
+                {
+                 "type":"string"
+                },
+             "2":
+                {
+                 "type":"string"
+                }
+            },
          "tilewidth":64
         }],
  "tilewidth":64,

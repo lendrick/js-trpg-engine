@@ -5,7 +5,7 @@ class GameMap {
 	constructor(tilemap, tilesets) {
 		this.tilemap = global.game.add.tilemap(tilemap);
 		this.tilemap.setTileSize(64, 64);
-		this.actors = {};
+		this.actors = [];
 
 		for(name in tilesets) {
 			this.tilemap.addTilesetImage(name, tilesets[name]);
@@ -24,6 +24,8 @@ class GameMap {
 		  	this.addActor(this.tilemap.objects[layer][object], layer);
 		  }
 	  }
+
+	  this.currentActor = 0;
 	}
 
 	addActor(object, layer) {
@@ -32,14 +34,26 @@ class GameMap {
 			x: object.x / this.tilemap.tileWidth,
 			y: object.y / this.tilemap.tileHeight,
 		};
+		/*
 		var name = object.name;
 		while(name in this.actors) {
 			name = name + '_';
 		}
-		this.actors[name] = new Actor(object.type, {}, this.tilemap, pos.x, pos.y);
-		console.log(name);
-		console.log(this.actors[name]);
-		this.layer.addChild(this.actors[name].sprite);
+		*/
+		var actor = new Actor(object.type, {}, this, pos.x, pos.y);
+		this.actors.push(actor);
+		this.layer.addChild(actor.sprite);
+	}
+
+	getCurrentActor() {
+		return this.actors[this.currentActor];
+	}
+
+	nextActor() {
+		this.currentActor++;
+		if(this.currentActor >= this.actors.length) this.currentActor = 0;
+		this.actors[this.currentActor].showRange();
+		return this.getCurrentActor();
 	}
 }
 

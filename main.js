@@ -9,6 +9,8 @@ var Actor = require('./Actor');
 var GameMap = require('./GameMap');
 var yaml  = require('js-yaml');
 
+global.$ = $;
+
 var map;
 
 global.game = game;
@@ -20,6 +22,7 @@ function preload() {
 	*/
 
 	var assets = yaml.safeLoad(fs.readFileSync('assets.yml', 'utf8'));
+	global.moveTypes = yaml.safeLoad(fs.readFileSync('moveTypes.yml', 'utf8'));
 	for(var tilemap in assets.tilemaps) {
 		game.load.tilemap(tilemap, assets.tilemaps[tilemap].file, null, Phaser.Tilemap.TILED_JSON);
 	}
@@ -50,7 +53,9 @@ function create() {
 	Phaser.Canvas.setImageRenderingCrisp(this.game.canvas) 
 
 	map = new GameMap('test', { tiles: 'tiles'});
-
+	global.currentMap = map;
+	map.nextActor();
+	
 	//var overlay = game.add.tileSprite(0, 0, 1920, 1080, 'overlay');
 	//overlay.alpha = 0.5;
 

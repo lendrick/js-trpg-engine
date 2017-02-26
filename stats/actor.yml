@@ -76,6 +76,10 @@ values:
     formula: 100 + this.get('acc')
   dodge:
     formula: Math.floor(this.get('spd') / 4)
+  moveTypes:
+    list:
+      add:
+        - walk
 curve:
   # Typically, the formula for calcuating a curve is:
   # base + (level * rate) ^ power

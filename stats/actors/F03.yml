@@ -1,3 +1,8 @@
 name: F03
 parent: actor
 sprite: F03
+values:
+  moveTypes:
+    list:
+      add:
+        - walk
