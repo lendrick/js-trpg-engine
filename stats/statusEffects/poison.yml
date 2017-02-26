@@ -1,0 +1,6 @@
+name: Poison
+parent: statusEffect
+duration: 5
+power: 10
+onTurn: |
+  parents[0].addMod('hp', -self.stats.power);

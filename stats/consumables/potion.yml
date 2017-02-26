@@ -1,6 +1,5 @@
 name: potion
-attributes:
-  consumable: true
+parent: consumable
 values:
   hp:
     value: 50

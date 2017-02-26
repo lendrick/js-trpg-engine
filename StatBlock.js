@@ -1,5 +1,9 @@
 'use strict';
 
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 var statsCache = new Object();
 var yaml  = require('js-yaml');
 var merge = require('deepmerge');
@@ -10,6 +14,7 @@ class StatBlock {
     this.stats = StatBlock.getStats(statBlockName);
     this.modifiers = new Object();
     this.equipment = new Object();
+    this.status = new Object();
     this.name = statBlockName;
     
     // Populate equipment
@@ -126,6 +131,7 @@ class StatBlock {
     }
   }
   
+  /*
   use(itemName) {
     var item = new StatBlock(itemName);
     for(var statName in item.stats.values) {
@@ -138,7 +144,88 @@ class StatBlock {
       }
     }
   }
+  */
   
+  hasAbility(abilityName) {
+    console.log(this.stats.name + " hasAbility " + abilityName);    
+    return this.getAbilities().includes(abilityName);    
+  }
+  
+  getAbilities() {
+    var abilities = [];
+    for(a in this.stats.abilities) {
+      abilities.push(a);
+    }
+    for(var slotName in this.equipment) {
+      for(var count in this.equipment[slotName]) {
+        if(this.equipment[slotName][count] !== null) {
+          itemAbilities = this.equipment[slotName][count].getAbilities();
+          for(var a in itemAbilities) {
+            if(!abilities.includes(itemAbilities[a])) abilities.push(itemAbilities[a]);
+          }
+        }
+      }
+    }
+    console.log(this.stats.name + " getAbilities")
+    console.log(abilities);
+    return abilities;
+  }
+  
+  useAbility(abilityName, user, targets = [], parents = []) {
+    console.log(this.stats.name + " useAbility: " + abilityName);
+    for(var slotName in this.equipment) {
+      for(var count in this.equipment[slotName]) {
+        if(this.equipment[slotName][count] !== null) {
+          if(this.equipment[slotName][count].hasAbility(abilityName)) {
+            parents.push(this);
+            let values = this.equipment[slotName][count].stats.values;
+            var result = this.equipment[slotName][count].useAbility(abilityName, user, targets, parents);
+            return result;
+          }
+        }
+      }
+    }
+    let values = this.stats.values;
+    let self = this;
+    var result = eval("(function() {" + this.stats.abilities[abilityName].function + "})();")
+    eval(this.stats['onAbility' + abilityName.capitalize()]);
+    return result;
+  }
+  
+  addStatus(statusName) {
+    console.log(this.stats.name + " addStatus: " + statusName);
+    if(!(statusName in this.status)) {
+      this.status[statusName] = new StatBlock(statusName);    
+    }
+  }
+  
+  removeStatus(statusName) {
+    if(statusName in this.status) {
+      delete this.status[statusName];
+    }
+  }
+  
+  turn(parents = []) {    
+    if('onTurn' in this.stats) {
+      let self = this;
+      eval("(function() {" + this.stats.onTurn + "})();");
+    }
+    
+    parents.push(this);
+    
+    for(var slotName in this.equipment) {
+      for(var count in this.equipment[slotName]) {
+        if(this.equipment[slotName][count] != null) {
+          this.equipment[slotName][count].turn(parents);
+        }
+      }
+    }
+    
+    for(var statusName in this.status) {
+      this.status[statusName].turn(parents);
+    }
+  }
+    
   static getStats(statBlockName) {
     console.log("getStats: " + statBlockName);
     if(!(statBlockName in statsCache)) {

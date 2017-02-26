@@ -1,7 +1,8 @@
 {
   "name": "helloworld",
   "main": "index.html",
-  "devDependencies": {
-    "nw-dev": "~3.0.1"
+  "window": {
+    "width": 1920,
+    "height": 1080
   }
 }

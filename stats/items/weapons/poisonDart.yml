@@ -1,0 +1,8 @@
+name: Poison Dart
+parent: items/weapon
+values:
+  atk:
+    value: 1
+onAbilityAttack: |
+  console.log('onAbilityAttack');
+  targets[0].addStatus('statusEffects/poison');

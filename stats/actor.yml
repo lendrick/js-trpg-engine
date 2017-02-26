@@ -1,6 +1,24 @@
 name: actor
 parent: stats
 canLevel: true
+abilities:
+  attack:
+    range: 1
+    spread: 0
+    function: |
+      var results = [];
+      for(var t in targets) {
+        let enemy = targets[t];
+        var hitChance = user.get('hit') - enemy.get('dodge');
+        if(Math.random() * 100 < hitChance) {
+          var damage = Math.max(user.get('atk') - enemy.get('def'), 1);
+          enemy.setMod('hp', -damage);
+          results.push({ target: enemy, status: 'hit', damage: damage });
+        } else {
+          results.push({ target: enemy, status: 'miss', damage: 0 });
+        }  
+      }
+      return results;
 slots:
   weapon:
     name: Weapon

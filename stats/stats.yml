@@ -1,6 +1,7 @@
 name: stats
 slots: {}
 attributes: {}
+abilities: {}
 values:
   lvl:
     name: Level

@@ -1,0 +1,6 @@
+name: Blind
+parent: statusEffect
+duration: 5
+values:
+  hit:
+    value: -50

@@ -1,0 +1,4 @@
+name: antidote
+parent: consumable
+onAbilityUse: |
+  targets[0].removeStatus('poison');

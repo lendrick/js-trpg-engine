@@ -2,3 +2,23 @@ name: item
 slots: {}
 attributes:
   consumable: true 
+abilities:
+  use:
+    function: |      
+      var results = [];
+      console.log('use consumable');
+      console.log(values);
+      for(var statName in values) {
+        let val = self.get(statName);
+        console.log(val);
+        if(val != 0) {
+          console.log(statName + ": " + val);
+          var mod = new Object();
+          for(var t in targets) {
+            targets[t].addMod(statName, self.get(statName));
+            mod[statName] = self.get(statName);
+            results.push({ status: 'hit', mod: mod });
+          }
+        }
+      }
+      return results;

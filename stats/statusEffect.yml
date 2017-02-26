@@ -1,0 +1,10 @@
+name: statusEffect
+parent: stats
+duration: 1;
+#onTurn:
+#onHit:
+#onRangedHit:
+#onMeleeHit:
+#onUseAbility:
+#onEquip:
+#onUnEquip:

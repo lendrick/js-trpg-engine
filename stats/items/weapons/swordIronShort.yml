@@ -1,5 +1,5 @@
 name: Iron Shortsword
-parent: item
+parent: items/weapon
 values:
   atk:
     value: 3
