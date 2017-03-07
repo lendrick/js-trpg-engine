@@ -73,6 +73,44 @@ class StatBlock {
     
     return val;
   }
+
+
+  // TODO: I lazily copy and pasted this from this.get()
+  getMax(statName) {
+    if(!(statName in this.stats.values)) {
+      return null;
+    }
+        
+    let val = this.getBase(statName);
+    if(val !== null && typeof val == 'object' && 'list' in val) {
+      if(!('add' in val.list)) val.list.add = [];
+      if(!('remove' in val.list)) val.list.remove = [];
+      for(var slotName in this.equipment) {
+        for(var i in this.equipment[slotName]) {
+          if(this.equipment[slotName][i] !== null) {
+            let equipVal = this.equipment[slotName][i].get(statName);
+            if(equipVal !== null && typeof equipVal == 'object' && 'list' in equipVal) {
+              val.list.add = Array.concat(val.list.add, equipVal.list.add);
+              val.list.remove = Array.concat(val.list.remove, equipVal.list.remove);
+            }
+          }
+        }
+      }
+    } else {
+      for(var slotName in this.equipment) {
+        for(var i in this.equipment[slotName]) {
+          if(this.equipment[slotName][i] !== null) {
+            let equipVal = this.equipment[slotName][i].get(statName);
+            if(equipVal !== null) {
+              val += equipVal;
+            }
+          }
+        }
+      }
+    }
+    
+    return val;
+  }
   
   getList(statName) {
     var list = this.get(statName);

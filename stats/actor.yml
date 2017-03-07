@@ -41,6 +41,13 @@ values:
     clampMod:
       max: 0
       min: -this.get('hp')
+  mp:   
+    name: MP
+    default: 1
+    formula: Math.floor(curve.mp.base + Math.pow(this.get('int') * this.get('lvl'), curve.mp.power))
+    clampMod:
+      max: 0
+      min: -this.get('mp')
   exp:
     name: Experience
     default: 0
@@ -90,6 +97,9 @@ curve:
   hp: # rate depends on constitution
     base: 1
     power: 1
+  mp: # rate depends on int
+    base: 1
+    power: 1  
   expvalue:
     base: 1
     rate: 1

@@ -48,4 +48,9 @@ values:
   dodge:
     name: Dodge
     default: 0
-  
+  hp:
+    name: HP
+    default: 0
+  mp:
+    name: MP
+    default: 0

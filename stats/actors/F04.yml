@@ -1,0 +1,8 @@
+name: F04
+parent: actor
+sprite: F04
+values:
+  moveTypes:
+    list:
+      add:
+        - walk

@@ -16,7 +16,7 @@ class Actor extends StatBlock {
     	let sheet = 'sprites/' + sprite.sheet;
     	console.log('loading ' + sprite.sheet + ': ' + sheet);
     	console.log(sprite);
-    	global.game.load.spritesheet(sprite.sheet, sheet, sprite.width, sprite.height);
+    	global.game.load.spritesheet(sprite.sheet, sheet sprite.width, sprite.height);
     }
 */
 	
@@ -36,12 +36,41 @@ class Actor extends StatBlock {
     this.text.fontWeight = 'bold';
     this.sprite.addChild(this.text);
     this.setPos(x, y);
+
+    this.barBackground = global.game.add.graphics();
+    this.sprite.addChild(this.barBackground);
+    this.barBackground.x = 0;
+    this.barBackground.y = 68;
+    this.barBackground.beginFill(0x000000);
+    this.barBackground.drawRect(0, 0, this.map.tilemap.tileWidth, 12);
+
+    this.updateHpBar();
   }
 
   setPos(x, y) {
   	this.pos = { x: x, y: y };
   	this.sprite.x = this.map.tilemap.tileWidth * x;
   	this.sprite.y = this.map.tilemap.tileWidth * y;
+  }
+
+  updateHpBar() {    
+    var maxHp = this.getMax('hp');
+    var hp = this.get('hp');
+    var hpWidth = Math.floor((this.map.tilemap.tileWidth - 2) * hp / maxHp);
+
+    this.hpBar = global.game.add.graphics();
+    this.barBackground.addChild(this.hpBar);
+    this.hpBar.beginFill(0xa00000);
+    this.hpBar.drawRect(1, 1, hpWidth, 4);
+
+    var maxMp = this.getMax('mp');
+    var mp = this.get('mp');
+    var mpWidth = Math.floor((this.map.tilemap.tileWidth - 2) * mp / maxMp);
+
+    this.mpBar = global.game.add.graphics();
+    this.barBackground.addChild(this.mpBar);
+    this.hpBar.beginFill(0x0070c0);
+    this.hpBar.drawRect(1, 6, mpWidth, 4);
   }
 
   showRange() {
@@ -53,8 +82,13 @@ class Actor extends StatBlock {
 
   	this.range = global.game.add.sprite();
   	this.range.alpha = 0.5;
-  	this.sprite.addChild(this.range);
-  	this.sprite.setChildIndex(this.range, 0);
+    this.range.x = this.map.tilemap.tileWidth * this.pos.x;
+    this.range.y = this.map.tilemap.tileWidth * this.pos.y;
+    this.map.layer.addChild(this.range);
+    this.map.layer.setChildIndex(this.range, 0);
+    //this.range.sendToBack();
+  	//this.sprite.addChild(this.range);
+  	//this.sprite.setChildIndex(this.range, 0);
   	for(var p in this.moveMap.map) {
   		let pos = this.moveMap.map[p];
   		let x = (pos.x - this.pos.x) * this.map.tilemap.tileWidth;
